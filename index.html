@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>BREAST ART · Виступ «Україна має талант»</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FBF8F2; --ink:#1A1A1A; --muted:#6B6457; --line:#E6DFD2;
+  --orange:#EA5A2B; --blue:#3E6AE1; --green:#2E8B57; --fuchsia:#D6286E;
+  --card:#FFFFFF;
+  --disp:'Cormorant Garamond',Georgia,serif;
+  --body:'Manrope',system-ui,-apple-system,sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  line-height:1.55;letter-spacing:.005em;
+  padding:0 0 64px;
+}
+.wrap{max-width:680px;margin:0 auto;padding:0 20px}
+
+/* ---------- header ---------- */
+header{padding:34px 0 18px;text-align:center}
+.mark{
+  font-family:var(--body);font-weight:800;font-size:13px;letter-spacing:.42em;
+  color:var(--orange);text-transform:uppercase;margin:0 0 0 .42em;
+}
+h1{
+  font-family:var(--disp);font-weight:600;font-size:clamp(34px,9vw,52px);
+  line-height:1.02;margin:.18em 0 .12em;letter-spacing:-.01em;
+}
+.sub{font-size:14px;color:var(--muted);font-weight:500}
+.sub b{color:var(--ink);font-weight:700}
+
+/* ---------- timer ---------- */
+.timer{
+  position:sticky;top:0;z-index:30;background:rgba(251,248,242,.92);
+  backdrop-filter:saturate(1.4) blur(8px);
+  border-bottom:1px solid var(--line);margin-top:18px;
+}
+.timer-inner{max-width:680px;margin:0 auto;padding:12px 20px 0}
+.timer-row{display:flex;align-items:center;gap:14px}
+.clock{
+  font-family:var(--disp);font-weight:600;font-size:30px;font-variant-numeric:tabular-nums;
+  letter-spacing:.01em;min-width:96px;line-height:1;
+}
+.clock .total{color:var(--muted);font-size:19px;font-weight:500}
+.now{flex:1;min-width:0}
+.now-label{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.now-name{font-family:var(--disp);font-size:23px;font-weight:600;line-height:1.05;color:var(--accent,var(--ink));transition:color .3s}
+.btn{
+  appearance:none;border:0;cursor:pointer;font-family:var(--body);font-weight:700;
+  font-size:14px;letter-spacing:.02em;border-radius:999px;padding:11px 20px;
+  background:var(--orange);color:#fff;transition:transform .12s ease,background .2s;
+}
+.btn:hover{background:#d44e22}
+.btn:active{transform:scale(.96)}
+.btn.ghost{background:transparent;color:var(--muted);padding:11px 10px}
+.btn.ghost:hover{color:var(--ink)}
+.bar{height:5px;background:var(--line);border-radius:99px;margin:12px 0 0;overflow:hidden;position:relative}
+.bar > i{display:block;height:100%;width:0;background:var(--orange);border-radius:99px;transition:width .25s linear,background .3s}
+.ticks{display:flex;justify-content:space-between;font-size:10px;color:var(--muted);
+  font-variant-numeric:tabular-nums;padding:5px 0 11px;font-weight:600;letter-spacing:.04em}
+
+/* ---------- meta strip ---------- */
+.meta{display:flex;gap:18px;flex-wrap:wrap;font-size:13px;color:var(--muted);padding:20px 0 4px}
+.meta b{color:var(--ink);font-weight:700}
+
+/* ---------- quadrant cards ---------- */
+.q{
+  background:var(--card);border:1px solid var(--line);border-radius:18px;
+  padding:20px 20px 22px;margin:14px 0;position:relative;
+  transition:border-color .3s,box-shadow .3s,transform .3s;
+  scroll-margin-top:150px;
+}
+.q::before{
+  content:"";position:absolute;left:0;top:18px;bottom:18px;width:4px;border-radius:99px;
+  background:var(--accent);opacity:.35;transition:opacity .3s;
+}
+.q.live{border-color:var(--accent);box-shadow:0 8px 30px -14px var(--accent);transform:translateY(-1px)}
+.q.live::before{opacity:1}
+.q-top{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:12px;padding-left:10px}
+.q-num{font-family:var(--disp);font-size:30px;font-weight:600;color:var(--accent);line-height:1}
+.q-name{font-family:var(--disp);font-size:27px;font-weight:600;letter-spacing:.01em;line-height:1}
+.q-eng{font-size:12px;letter-spacing:.06em;color:var(--muted);font-weight:600;text-transform:uppercase}
+.q-time{margin-left:auto;font-variant-numeric:tabular-nums;font-weight:700;font-size:14px;
+  color:var(--accent);background:color-mix(in srgb,var(--accent) 10%,transparent);
+  padding:4px 10px;border-radius:99px}
+.cue{padding-left:10px;font-size:13px;color:var(--muted);font-style:italic;margin:0 0 10px}
+.script{font-family:var(--disp);font-size:21px;line-height:1.42;font-weight:500;padding-left:10px}
+.script .hl{font-weight:600;color:var(--ink)}
+.script .key{font-weight:600;color:var(--accent)}
+.cut{padding-left:10px;font-size:12.5px;color:var(--muted);margin-top:10px}
+.cut b{color:var(--fuchsia)}
+
+/* ---------- anchors ---------- */
+.h2{font-family:var(--disp);font-size:28px;font-weight:600;margin:38px 0 4px;line-height:1.1}
+.h2-note{font-size:13px;color:var(--muted);margin:0 0 16px;font-style:italic}
+.anchor{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin:10px 0}
+.anchor .qz{font-weight:700;color:var(--blue);font-size:15px;margin-bottom:5px}
+.anchor .az{font-family:var(--disp);font-size:19px;line-height:1.38;font-weight:500}
+
+/* ---------- checklist ---------- */
+.check{margin:8px 0 0;padding:0;list-style:none}
+.check li{display:flex;gap:12px;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--line);font-size:15px}
+.check li:last-child{border-bottom:0}
+.box{flex:none;width:20px;height:20px;border:2px solid var(--orange);border-radius:6px;margin-top:1px;
+  position:relative;cursor:pointer;transition:background .15s}
+.box[aria-checked="true"]{background:var(--orange)}
+.box[aria-checked="true"]::after{content:"";position:absolute;left:5px;top:1px;width:5px;height:10px;
+  border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(45deg)}
+.check label{cursor:pointer}
+.done{color:var(--muted);text-decoration:line-through}
+
+footer{text-align:center;color:var(--muted);font-size:12px;padding:42px 0 0;letter-spacing:.02em}
+footer .mark{font-size:11px;letter-spacing:.36em;display:inline-block;margin:0 0 6px}
+
+@media (max-width:430px){
+  .clock{font-size:26px;min-width:84px}
+  .script{font-size:20px}
+  .q-time{margin-left:0}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <p class="mark">BREAST ART</p>
+    <h1>Україна має талант</h1>
+    <p class="sub">Структура виступу · <b>2 хвилини розмови</b> після перформансу</p>
+  </div>
+</header>
+
+<!-- Rehearsal timer -->
+<div class="timer">
+  <div class="timer-inner">
+    <div class="timer-row">
+      <div class="clock"><span id="elapsed">0:00</span><span class="total"> / 2:00</span></div>
+      <div class="now">
+        <div class="now-label">Зараз кажеш</div>
+        <div class="now-name" id="nowName">Натисни «Старт»</div>
+      </div>
+      <button class="btn" id="startBtn">Старт</button>
+      <button class="btn ghost" id="resetBtn" aria-label="Скинути">Скинути</button>
+    </div>
+    <div class="bar"><i id="barFill"></i></div>
+    <div class="ticks"><span>0:00</span><span>0:30</span><span>0:55</span><span>1:25</span><span>2:00</span></div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="meta">
+    <span><b>Темп:</b> повільно, з паузами</span>
+    <span><b>Очі:</b> WHY/WHAT — у зал · WHAT IF — на журі</span>
+  </div>
+
+  <!-- ① WHY -->
+  <section class="q" id="q1" style="--accent:var(--orange)">
+    <div class="q-top">
+      <span class="q-num">①</span>
+      <span class="q-name">Чому</span>
+      <span class="q-eng">why</span>
+      <span class="q-time">0:00–0:30</span>
+    </div>
+    <p class="cue">Опираєшся на емоцію, яку зал щойно відчув від перформансу.</p>
+    <p class="script">«Те, що ви щойно побачили, для багатьох виглядає як провокація. <span class="hl">Дайте мені дві хвилини</span> — і ви побачите інше. Я малюю власним тілом, грудьми, бо саме ця частина жінки несе найбільше і сорому, і болю. <span class="key">Рак грудей.</span> Кожен у цьому залі знає таку жінку.»</p>
+  </section>
+
+  <!-- ② WHAT -->
+  <section class="q" id="q2" style="--accent:var(--blue)">
+    <div class="q-top">
+      <span class="q-num">②</span>
+      <span class="q-name">Що</span>
+      <span class="q-eng">what · факти, без води</span>
+      <span class="q-time">0:30–0:55</span>
+    </div>
+    <p class="script">«Мене звати Діана, мій проєкт — <span class="hl">BREAST ART</span>. Я беру тіло, яке суспільство звикло або соромити, або сексуалізувати, — і перетворюю його на інструмент мистецтва. Мої картини — про прийняття себе, про жіночність і про силу бути собою.»</p>
+  </section>
+
+  <!-- ③ HOW -->
+  <section class="q" id="q3" style="--accent:var(--green)">
+    <div class="q-top">
+      <span class="q-num">③</span>
+      <span class="q-name">Як</span>
+      <span class="q-eng">how · твій шлях</span>
+      <span class="q-time">0:55–1:25</span>
+    </div>
+    <p class="script">«Але я не просто малюю картини. Я проводжу <span class="hl">арт-практики для жінок</span> — коли жінка вперше в житті торкається полотна власним тілом і відпускає сором. І я бачу, як та, що соромилася себе роками, виходить із сесії іншою людиною.»</p>
+    <p class="cut">Не встигаєш — ріжеш <b>цей приклад</b> («і я бачу, як та…») першим.</p>
+  </section>
+
+  <!-- ④ WHAT IF -->
+  <section class="q" id="q4" style="--accent:var(--fuchsia)">
+    <div class="q-top">
+      <span class="q-num">④</span>
+      <span class="q-name">А що якщо</span>
+      <span class="q-eng">what if · бачення</span>
+      <span class="q-time">1:25–2:00</span>
+    </div>
+    <p class="cue">Дивишся особисто на журі, по черзі.</p>
+    <p class="script">«А тепер уявіть. Країну, де жодна дівчина не росте з відчуттям, що її тіло — це сором. Де жінка після мастектомії дивиться у дзеркало і бачить не втрату — а себе. Я вірю, що мистецтво здатне це змінити. <span class="key">Я — Діана. Це — BREAST ART. І це лише початок.»</span></p>
+  </section>
+
+  <!-- anchors -->
+  <h2 class="h2">Якщо журі переб'є</h2>
+  <p class="h2-note">Коротка відповідь, що повертає в твою лінію. Не виправдовуйся — перевертай.</p>
+
+  <div class="anchor"><div class="qz">«Чи не соромно?»</div><div class="az">«Соромно було колись. Саме тому я й роблю те, що роблю — щоб жодна жінка більше не соромилася власного тіла.»</div></div>
+  <div class="anchor"><div class="qz">«Це мистецтво чи епатаж?»</div><div class="az">«Епатаж живе один вечір. А мої картини купують у дім і дарують близьким. Це залишається.»</div></div>
+  <div class="anchor"><div class="qz">«Хто купує такі роботи?»</div><div class="az">«Жінки — для себе. І чоловіки — у подарунок жінкам, яких люблять.»</div></div>
+
+  <!-- checklist -->
+  <h2 class="h2">Чек-ліст за лаштунками</h2>
+  <ul class="check" id="check">
+    <li><span class="box" role="checkbox" aria-checked="false" tabindex="0"></span><label>Полотно для перформансу готове на 70–80% — фінал довершуєш в ефірі.</label></li>
+    <li><span class="box" role="checkbox" aria-checked="false" tabindex="0"></span><label>Перші слова — повільно. Пауза після «дайте мені дві хвилини».</label></li>
+    <li><span class="box" role="checkbox" aria-checked="false" tabindex="0"></span><label>Жодних неперевірених цифр про рак — працює «кожен у залі знає таку жінку».</label></li>
+    <li><span class="box" role="checkbox" aria-checked="false" tabindex="0"></span><label>Остання фраза — голосніше й повільніше, у журі: «І це лише початок».</label></li>
+  </ul>
+
+  <footer>
+    <span class="mark">BREAST ART</span><br>
+    Шпаргалка для репетиції · Діана Чмих
+  </footer>
+</div>
+
+<script>
+(function(){
+  // ---- segments: [startSec, endSec, name, accentVar, cardId] ----
+  var SEG = [
+    [0,   30,  "① Чому",       "--orange",  "q1"],
+    [30,  55,  "② Що",         "--blue",    "q2"],
+    [55,  85,  "③ Як",         "--green",   "q3"],
+    [85,  120, "④ А що якщо",  "--fuchsia", "q4"]
+  ];
+  var TOTAL = 120;
+  var elapsedEl = document.getElementById("elapsed");
+  var nowName   = document.getElementById("nowName");
+  var barFill   = document.getElementById("barFill");
+  var startBtn  = document.getElementById("startBtn");
+  var resetBtn  = document.getElementById("resetBtn");
+  var cards     = SEG.map(function(s){return document.getElementById(s[4]);});
+
+  var running=false, t0=0, acc=0, raf=null, lastSeg=-1, ticked=false;
+  var reduce = window.matchMedia("(prefers-reduced-motion:reduce)").matches;
+
+  function fmt(s){var m=Math.floor(s/60);var ss=Math.floor(s%60);return m+":"+(ss<10?"0":"")+ss;}
+
+  function segAt(sec){
+    for(var i=0;i<SEG.length;i++){ if(sec < SEG[i][1]) return i; }
+    return SEG.length-1;
+  }
+
+  function paint(sec){
+    sec = Math.min(sec, TOTAL);
+    elapsedEl.textContent = fmt(sec);
+    var pct = (sec/TOTAL)*100;
+    barFill.style.width = pct+"%";
+
+    var idx = sec>=TOTAL ? -1 : segAt(sec);
+    if(sec>=TOTAL){
+      nowName.textContent = "Час! 2:00";
+      nowName.style.setProperty("--accent","var(--fuchsia)");
+      nowName.style.color="var(--fuchsia)";
+      barFill.style.background="var(--fuchsia)";
+      cards.forEach(function(c){c.classList.remove("live");});
+      return;
+    }
+    var s = SEG[idx];
+    nowName.textContent = s[2];
+    nowName.style.color = "var("+s[3]+")";
+    barFill.style.background = "var("+s[3]+")";
+
+    if(idx!==lastSeg){
+      cards.forEach(function(c,i){ c.classList.toggle("live", i===idx); });
+      if(running && !reduce && cards[idx]){
+        cards[idx].scrollIntoView({behavior:"smooth",block:"center"});
+      }
+      lastSeg=idx;
+    }
+  }
+
+  function loop(){
+    var sec = acc + (Date.now()-t0)/1000;
+    paint(sec);
+    if(sec>=TOTAL){ stop(true); return; }
+    raf = requestAnimationFrame(loop);
+  }
+
+  function start(){
+    running=true; t0=Date.now(); startBtn.textContent="Пауза";
+    raf=requestAnimationFrame(loop);
+  }
+  function stop(finished){
+    running=false; cancelAnimationFrame(raf);
+    if(!finished){ acc += (Date.now()-t0)/1000; }
+    startBtn.textContent = finished ? "Ще раз" : "Далі";
+    if(finished) acc=TOTAL;
+  }
+  function reset(){
+    running=false; cancelAnimationFrame(raf); acc=0; lastSeg=-1;
+    startBtn.textContent="Старт";
+    nowName.textContent="Натисни «Старт»"; nowName.style.color="var(--ink)";
+    barFill.style.background="var(--orange)";
+    cards.forEach(function(c){c.classList.remove("live");});
+    paint(0); elapsedEl.textContent="0:00"; barFill.style.width="0%";
+  }
+
+  startBtn.addEventListener("click",function(){
+    if(acc>=TOTAL) reset();
+    running ? stop(false) : start();
+  });
+  resetBtn.addEventListener("click",reset);
+
+  // checklist toggles (in-memory, no storage)
+  document.querySelectorAll(".box").forEach(function(b){
+    function toggle(){
+      var on = b.getAttribute("aria-checked")==="true";
+      b.setAttribute("aria-checked", on?"false":"true");
+      var label=b.parentElement.querySelector("label");
+      if(label) label.classList.toggle("done", !on);
+    }
+    b.addEventListener("click",toggle);
+    b.addEventListener("keydown",function(e){ if(e.key===" "||e.key==="Enter"){e.preventDefault();toggle();} });
+  });
+
+  paint(0);
+})();
+</script>
+</body>
+</html>
